@@ -1,0 +1,107 @@
+# Image Commands
+docker images                    # List all available Docker images
+docker pull <image_name>         # Download a Docker image from a registry
+docker rmi <image_id>            # Remove a Docker image
+
+# Container Commands
+docker ps                        # List all running containers
+docker ps -a                     # List all containers, including stopped ones
+docker run <image_name>           # Create and start a container from an image
+docker start <container_id>      # Start a stopped container
+docker stop <container_id>       # Stop a running container
+docker restart <container_id>    # Restart a container
+docker exec -it <container_id> <command>  # Execute a command inside a running container
+
+# Network Commands
+docker network ls                # List all Docker networks
+docker network inspect <network_id>     # Display detailed information about a network
+
+# Volume Commands
+docker volume ls                 # List all Docker volumes
+docker volume create <volume_name>      # Create a Docker volume
+
+# Registry/Login Commands
+docker login                     # Log in to a Docker registry
+docker logout                    # Log out from a Docker registry
+
+# Cleanup Commands
+docker system prune              # Remove all stopped containers, unused networks, and dangling images
+docker container prune           # Remove all stopped containers
+docker image prune               # Remove unused images
+
+# Info Commands
+docker info                      # Display system-wide information about Docker and its components
+docker version                   # Show Docker version information
+
+# Dockerfile Commands
+docker build -t <image_name> .   # Build a Docker image from a Dockerfile
+docker build -t <image_name> <dockerfile_path>   # Build a Docker image from a Dockerfile
+docker build -t <image_name>:<tag> .   # Build a Docker image from a Dockerfile
+docker build -t <image_name>:<tag> <dockerfile_path>   # Build a Docker image from a Dockerfile
+docker build -t <image_name>:<tag> <dockerfile_path> --no-cache   # Build a Docker image from a Dockerfile without cache
+docker build -t <image_name>:<tag> <dockerfile_path> --build-arg <key>=<value>   # Build a Docker image from a Dockerfile with build arguments
+
+# Docker Compose Commands
+docker-compose up                # Create and start containers
+docker-compose up -d             # Create and start containers in the background
+docker-compose down              # Stop and remove containers, networks, images, and volumes
+docker-compose logs              # View output from containers
+docker-compose logs -f           # Follow log output
+docker-compose ps                # List containers
+docker-compose top               # Display the running processes
+docker-compose exec <service_name> <command>   # Execute a command inside a running container
+docker-compose build             # Build or rebuild services
+docker-compose config            # Validate and view the Compose file
+docker-compose pull              # Pull service images
+docker-compose restart           # Restart services
+docker-compose start             # Start services
+docker-compose stop              # Stop services
+docker-compose kill              # Kill containers
+docker-compose rm                # Remove stopped containers
+docker-compose down -v           # Remove volumes
+
+====================================================================================================
+# Application Specific Commands
+====================================================================================================
+docker compose build
+docker compose up -d
+docker compose up -d goapp
+docker compose ps -a
+docker exec -it db psql -U postgres     // connect into postgres db
+    \l                                  // list all databases
+    \dt                                 // list all tables
+    \c <db_name>                        // connect into a database
+    \d <table_name>                     // describe a table
+    \q                                  // quit
+docker exec -it goapp go version        // check go version (go1.21.6 linux/amd64)
+
+
+//tail logs
+docker logs -f goapp
+docker logs -f db
+docker logs -f nginx
+
+//tail logs for a specific container
+docker-compose logs -f goapp
+docker-compose logs -f db
+
+//rebuild after changes
+docker-compose up -d --build
+
+
+//FRONTEND next.js
+npx create-next-app@latest --no-git
+cd frontend
+npm i axios
+
+
+//Deploying Next.js App to Docker
+docker build -t frontend .      //otherwise cd in frontend and run: docker compose build
+docker compose up -d nextapp
+
+//remove docker images
+docker rmi -f $(docker images -a -q)
+
+
+
+
